@@ -2,8 +2,8 @@
   "type": "postgres",
   "host": "localhost",
   "port": 5432,
-  "username": "postgres",
-  "password": "docker",
+  "username": "adoption4love",
+  "password": "DioXSquado2020!",
   "database": "adoption_forlove",
   "entities": [
     "./src/models/*.ts"

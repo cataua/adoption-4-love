@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  postgres-compose:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "DioXSquado2020!"
+      PGPASSWORD: "DioXSquado2020!"
+      POSTGRES_USER: "adoption4love"
+      POSTGRES_DB: "adoption_forlove"
+    ports:
+      - "5432:5432"
+    volumes:
+      - /db:/var/lib/postgresql/data 
+    networks:
+      - postgres-compose-network
+      
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "rogerio@caetanorama.ppg.br"
+      PGADMIN_DEFAULT_PASSWORD: "DioXSquad2020"
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres-compose
+    networks:
+      - postgres-compose-network
+
+networks: 
+  postgres-compose-network:
+    driver: bridge
