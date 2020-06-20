@@ -21,8 +21,24 @@ const get = async (req, res) => {
 
 const save = async (req, res) => {
   try {
-
+    return familyService.save(req.body);
   } catch (error) {
     return res.json(error);
   }
+}
+
+const del = async (req, res) => {
+  try {
+    const { id } = req.body;
+    return familyService.del(id);
+  } catch (error) {
+    return res.json(error);
+  }
+}
+
+exports.default = {
+  list,
+  get,
+  save,
+  del
 }

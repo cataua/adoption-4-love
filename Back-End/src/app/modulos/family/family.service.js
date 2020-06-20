@@ -41,7 +41,7 @@ const del = async (family_id, options) => {
   return save(familyDeleted);
 }
 
-module.exports = {
+export default {
   list,
   get,
   save,
