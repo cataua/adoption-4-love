@@ -11,6 +11,6 @@
     "esModuleInterop": true,/* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     "suppressImplicitAnyIndexErrors": true,
     },
-    "include": ["src/**/*", "knexfile.js", "src/server.js"],
+    "include": ["src/**/*", "knexfile.js", "src/server.ts"],
     "exclude":  ["node_modules", "**/*.test.ts"]
 }
