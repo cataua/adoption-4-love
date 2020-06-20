@@ -10,7 +10,6 @@ exports.up = async (db) => {
             table.string('nickname', 45).notNullable().unique();
             table.string('email', 45).notNullable();
             table.string('password').notNullable();
-            table.foreign('address_id').references('tbl_address.address_id');
             table.timestamp('created_at').notNullable().defaultTo(db.fn.now());
             table.timestamp('updated_at').notNullable().defaultTo(db.fn.now());
             table.timestamp('deleted_at').nullable(); 

@@ -4,7 +4,6 @@ import _ from 'lodash';
 import moment from 'moment';
 import config from '../knexfile';
 
-console.log('configf -> ', config['development']);
 const knex = Knex(config['development']);
 const bookshelf = Bookshelf(knex);
 

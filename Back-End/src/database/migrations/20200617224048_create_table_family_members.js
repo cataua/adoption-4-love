@@ -10,7 +10,11 @@ exports.up = async (db) => {
             table.string('cpf', 11).notNullable();
             table.enu('degree_of_kinship', ['Representante', 'Cônjuge', 'Filho(a)']).notNullable();
             table.date('birth_date').nullable();
-            table.foreign('family_id').references('tbl_family.family_id');
+            table
+              .integer('family_id')
+              .references('family_id')
+              .inTable('tbl_family')
+              .unsigned();
             table.timestamp('created_at').notNullable().defaultTo(db.fn.now());
             table.timestamp('updated_at').notNullable().defaultTo(db.fn.now());
             table.timestamp('deleted_at').nullable(); 

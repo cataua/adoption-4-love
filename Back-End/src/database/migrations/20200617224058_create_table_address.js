@@ -12,6 +12,11 @@ exports.up = async (db) => {
             table.string('complement', 20).nullable();
             table.string('city', 90).nullable();
             table.string('state', 2).nullable();
+            table
+              .integer('family_id')
+              .references('family_id')
+              .inTable('tbl_family')
+              .unsigned();
             table.timestamp('created_at').notNullable().defaultTo(db.fn.now());
             table.timestamp('updated_at').notNullable().defaultTo(db.fn.now());
             table.timestamp('deleted_at').nullable(); 
