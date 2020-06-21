@@ -1,6 +1,6 @@
 import { Model } from 'objection';
 import Address from '../address/address.model';
-import FamilyMember from '../familyMember/familyMember.model';
+import FamilyMembers from '../familyMember/familyMember.model';
 
 export default class Family extends Model {
   
@@ -25,7 +25,7 @@ export default class Family extends Model {
   static relationMappings = () => ({
     familyMembers: {
       relation: Model.HasManyRelation,
-      modelClass: FamilyMember,
+      modelClass: FamilyMembers,
       join: {
         from: 'tbl_family_member.family_id',
         to: 'family_id',

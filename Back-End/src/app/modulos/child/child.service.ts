@@ -1,10 +1,10 @@
-import Family from './family.model';
+import service from './child.model';
 
 /** 
- * Fetch multiple families
+ * Fetch multiple childrens
 */
 const list = async (args:any) => {
-  const query = Family.query();
+  const query = service.query();
   
   query.whereNull('deleted_at');
 
@@ -16,8 +16,12 @@ const list = async (args:any) => {
     query.where('nickname', 'LIKE', `%${args.query.nickname}%`);
   }
 
-  if (args.query.email) {
-    query.where('email', args.query.email)
+  if (args.query.ethinicity) {
+    query.where('ethinicity', args.query.ethinicity)
+  }
+
+  if (args.query.birthday) {
+    query.where('birth_date', args.query.birthday)
   }
 
   if (args.query.orderBy) {
@@ -29,26 +33,26 @@ const list = async (args:any) => {
 };
 
 /** 
- * Get on family 
+ * Get one child
  * @param args
 */
 const get = async (args:any) => {
   try {
-    const familyFound = await Family.query().whereNull('deleted_at').findById(args.params.id);
-    return familyFound;
+    const child = await service.query().whereNull('deleted_at').findById(args.params.id);
+    return child;
   } catch(error) {
     return error
   }
 }
 /** 
- * Save family 
+ * Save child
  * @param args
 */
 const save = async (args:any) => {
   try {
-    const insertedGraph = await Family.transaction(async trx => {
-      const insertedGraph = await Family.query(trx)
-        .allowGraph('[familyMembers, address]')
+    const insertedGraph = await service.transaction(async (trx) => {
+      const insertedGraph = await service.query(trx)
+        .allowGraph('[institution]')
         .insertGraph(args.body);
       return insertedGraph; 
     });
@@ -59,13 +63,13 @@ const save = async (args:any) => {
 }
 
 /** 
- * Update family 
+ * Update child
  * @param args
 */
 const patch = async (args:any) => {
   try {
-    const insertedGraph = await Family.transaction(async trx => {
-      const insertedGraph = await Family.query(trx)
+    const insertedGraph = await service.transaction(async (trx) => {
+      const insertedGraph = await service.query(trx)
         .patch(args.body)
         .findById(args.params.id);
       return insertedGraph; 
@@ -77,18 +81,18 @@ const patch = async (args:any) => {
 }
 
 /** 
- * Delete/Desactive a family 
+ * Delete/Desactive a child
  * @param args
 */
 const del = async (args:any) => {
   try {
     const { id } = args.params;
-    const familyReq = args.body;
+    const memberReq = args.body;
     const now = new Date();
-    familyReq.deleted_at = now;
-    const familyDeleted = await Family.query().findById(id).patch(familyReq);
+    memberReq.deleted_at = now;
+    const memberDeleted = await service.query().findById(id).patch(memberReq);
     return {
-      success: familyDeleted == 1,
+      success: memberDeleted == 1,
     }
   } catch(error) {
     return error

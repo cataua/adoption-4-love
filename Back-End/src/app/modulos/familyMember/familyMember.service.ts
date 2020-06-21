@@ -1,10 +1,10 @@
-import Family from './family.model';
+import service from './familyMember.model';
 
 /** 
- * Fetch multiple families
+ * Fetch multiple members
 */
 const list = async (args:any) => {
-  const query = Family.query();
+  const query = service.query();
   
   query.whereNull('deleted_at');
 
@@ -12,12 +12,16 @@ const list = async (args:any) => {
     query.select(args.query.select);
   }
 
-  if (args.query.nickname) {
-    query.where('nickname', 'LIKE', `%${args.query.nickname}%`);
+  if (args.query.name) {
+    query.where('name', 'LIKE', `%${args.query.name}%`);
   }
 
-  if (args.query.email) {
-    query.where('email', args.query.email)
+  if (args.query.cpf) {
+    query.where('cpf', args.query.cpf)
+  }
+
+  if (args.query.birthday) {
+    query.where('birth_date', args.query.birthday)
   }
 
   if (args.query.orderBy) {
@@ -29,43 +33,45 @@ const list = async (args:any) => {
 };
 
 /** 
- * Get on family 
+ * Get one family member
  * @param args
 */
 const get = async (args:any) => {
   try {
-    const familyFound = await Family.query().whereNull('deleted_at').findById(args.params.id);
-    return familyFound;
+    const member = await service.query().whereNull('deleted_at').findById(args.params.id);
+    return member;
   } catch(error) {
     return error
   }
 }
 /** 
- * Save family 
+ * Save family member
  * @param args
 */
 const save = async (args:any) => {
   try {
-    const insertedGraph = await Family.transaction(async trx => {
-      const insertedGraph = await Family.query(trx)
-        .allowGraph('[familyMembers, address]')
+    const insertedGraph = await service.transaction(async trx => {
+      const insertedGraph = await service.query(trx)
+        .allowGraph('[family]')
         .insertGraph(args.body);
       return insertedGraph; 
     });
+    console.log('Inserted -> ', insertedGraph);
     return insertedGraph;
   } catch (error) { 
+    console.log('Erro -> ', error)
     return error
   }
 }
 
 /** 
- * Update family 
+ * Update family member
  * @param args
 */
 const patch = async (args:any) => {
   try {
-    const insertedGraph = await Family.transaction(async trx => {
-      const insertedGraph = await Family.query(trx)
+    const insertedGraph = await service.transaction(async trx => {
+      const insertedGraph = await service.query(trx)
         .patch(args.body)
         .findById(args.params.id);
       return insertedGraph; 
@@ -77,18 +83,18 @@ const patch = async (args:any) => {
 }
 
 /** 
- * Delete/Desactive a family 
+ * Delete/Desactive a family member
  * @param args
 */
 const del = async (args:any) => {
   try {
     const { id } = args.params;
-    const familyReq = args.body;
+    const memberReq = args.body;
     const now = new Date();
-    familyReq.deleted_at = now;
-    const familyDeleted = await Family.query().findById(id).patch(familyReq);
+    memberReq.deleted_at = now;
+    const memberDeleted = await service.query().findById(id).patch(memberReq);
     return {
-      success: familyDeleted == 1,
+      success: memberDeleted == 1,
     }
   } catch(error) {
     return error

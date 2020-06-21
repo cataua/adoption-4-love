@@ -5,6 +5,10 @@ export default class Address extends Model {
   
   static tableName = 'tbl_address'
 
+  static get idColumn() {
+    return 'address_id';
+  }
+
   static jsonSchema = {
     type: 'object',
     required: ['cep', 'street', 'number'],

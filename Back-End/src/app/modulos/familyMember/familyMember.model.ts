@@ -1,9 +1,13 @@
 import { Model } from 'objection';
 import Family from '../family/family.model';
 
-export default class FamilyMember extends Model {
+export default class FamilyMembers extends Model {
   
-  static tableName = 'tbl_family_member'
+  static tableName = 'tbl_family_members'
+
+  static get idColumn() {
+    return 'family_member_id';
+  }
 
   static jsonSchema = {
     type: 'object',
@@ -14,13 +18,12 @@ export default class FamilyMember extends Model {
       cpf: { type: 'string', minLength  : 11, maxLength : 11 },
       degree_of_kinship: { type: 'string', enum: ['Representante', 'Cônjuge', 'Filho(a)'] },
       birth_date: { type: 'string' },
-      family_id: { type: 'integer' },
     }
   }
 
   static relationMappings = () => ({
     family: {
-      relation: Model.BelongsToOneRelation,
+      relation: Model.HasOneRelation,
       modelClass: Family,
       join: {
         from: 'tbl_family.family_id',
