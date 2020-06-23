@@ -1,7 +1,7 @@
 import App from './app';
 import Knex from 'knex';
-import config from '../knexfile'
 import { Model } from 'objection';
+const config = require('../knexfile');
 
 const knex:Knex = Knex(config.development);
 
