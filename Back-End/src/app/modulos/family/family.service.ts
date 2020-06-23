@@ -46,12 +46,8 @@ const get = async (args:any) => {
 */
 const save = async (args:any) => {
   try {
-    const insertedGraph = await Family.transaction(async trx => {
-      const insertedGraph = await Family.query(trx)
-        .allowGraph('[familyMembers, address]')
-        .insertGraph(args.body);
-      return insertedGraph; 
-    });
+    console.log('Family -> ', Family);
+    const insertedGraph = await Family.query().insert(args.body);
     return insertedGraph;
   } catch (error) { 
     return error

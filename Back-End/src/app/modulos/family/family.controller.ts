@@ -23,7 +23,10 @@ const get = async (req: express.Request, res: express.Response) => {
 
 const save = async (req: express.Request, res: express.Response) => {
   try {
+    console.log('a');
     const resp = await familyService.save(req);
+    console.log('b');
+    console.log('resp -> ', resp);
     return res.json(resp);
   } catch (error) {
     return res.json(error);

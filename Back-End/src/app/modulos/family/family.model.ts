@@ -9,6 +9,9 @@ export default class Family extends Model {
   static get idColumn() {
     return 'family_id';
   }
+  static get related() {
+    return this.relationMappings;
+  }
 
   static jsonSchema = {
     type: 'object',

@@ -4,7 +4,7 @@ module.exports = {
     connection: {
       host: 'localhost',
       database: 'adoption_forlove',
-      user: "postgres",
+      user: "adoption4love",
       password: "DioXSquado2020!",
       insecureAuth: true,
       timezone: '-03:00',

@@ -4,7 +4,7 @@ import routes from './routes';
 
 const App = () => {
     const app = express();
-    const port = 3000;
+    const port = 3001;
 
     const logger = (request: express.Request, response: express.Response, next: express.NextFunction) => {
     console.log(`LOGGER: ${request.method} - ${request.path} (${response.statusCode})`);
