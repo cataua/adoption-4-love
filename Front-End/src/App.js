@@ -1,20 +1,20 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+
 import './App.scss';
 
-import ControlledCarousel from './components/Carrousel';
 import Header from './components/Header';
-import Main from './components/Main';
 import Footer from './components/Footer';
+import Routes from './routes';
 
 function App() {
   return (
-    <div className="App">
+    <BrowserRouter>
       <Header />
-      <ControlledCarousel />
-      <Main/>
+      <Routes />
       <Footer />
-    </div>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
