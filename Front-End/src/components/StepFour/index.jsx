@@ -11,10 +11,10 @@ export default () => {
           <span>Ao clicar em "Aceito" eu concordo que:</span>
           <ul className='docs-terms'>
             <li>
-              Eu li e concordo com <a href='#'>Termo de Acordo</a>
+              Eu li e concordo com <a href='/nothing'>Termo de Acordo</a>
             </li>
             <li>
-              Eu li e concordo com e <a href='#'>Politica de Privacidade</a>
+              Eu li e concordo com e <a href='/nothing'>Politica de Privacidade</a>
             </li>
             <li>Eu sou maior de 18 anos</li>
           </ul>
