@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
+import { FiLogIn, FiUser } from 'react-icons/fi'
 
 import logo from '../../assets/img/logo.png';
 
@@ -18,10 +19,10 @@ const Header = () => {
         <div className="header-menu">
           <ul className="header-menu-items">
             <Link to="/login">
-              <li className="header-menu-item">Entrar</li>
+              <li className="header-menu-item"><FiLogIn size={25} />Entrar</li>
             </Link>
             <Link to="/signup">
-              <li className="header-menu-item">Cadastrar</li>
+              <li className="header-menu-item"><FiUser size={25} />Cadastrar</li>
             </Link>
           </ul>
         </div>
