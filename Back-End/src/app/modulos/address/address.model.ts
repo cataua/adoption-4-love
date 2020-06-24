@@ -29,8 +29,8 @@ export default class Address extends Model {
       relation: Model.BelongsToOneRelation,
       modelClass: Family,
       join: {
-        from: 'tbl_family.family_id',
-        to: 'family_id',
+        from: 'tbl_address.family_id',
+        to: 'tbl_family.family_id',
       }
     },
   })

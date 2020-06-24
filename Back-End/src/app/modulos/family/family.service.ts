@@ -4,13 +4,9 @@ import Family from './family.model';
  * Fetch multiple families
 */
 const list = async (args:any) => {
-  const query = Family.query();
-  
+  const query = Family.query().allowGraph('[familyMembers.*, address.*]');//.withGraphJoined('[familyMembers.*, address.*]');
+  console.log('uwr ', query);
   query.whereNull('deleted_at');
-
-  if (args.query.select) {
-    query.select(args.query.select);
-  }
 
   if (args.query.nickname) {
     query.where('nickname', 'LIKE', `%${args.query.nickname}%`);
@@ -23,6 +19,8 @@ const list = async (args:any) => {
   if (args.query.orderBy) {
     query.orderBy(args.query.orderBy);
   }
+
+  // query.withGraphFetched();
   const resp = await query;
   
   return resp;
@@ -34,9 +32,14 @@ const list = async (args:any) => {
 */
 const get = async (args:any) => {
   try {
-    const familyFound = await Family.query().whereNull('deleted_at').findById(args.params.id);
+    const familyFound:Object = await Family.query()
+      .allowGraph('[familyMembers, address]')
+      .withGraphFetched('[familyMembers, address]')
+      .whereNull('deleted_at')
+      .where('family_id', '=', args.params.id)
     return familyFound;
   } catch(error) {
+    console.log('Error -> ', error);
     return error
   }
 }

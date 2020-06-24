@@ -1,10 +1,10 @@
-import service from './institution.model'
+import model from './institution.model'
 
 /** 
  * Fetch multiple institutions
 */
 const list = async (args:any) => {
-  const query = service.query();
+  const query = model.query();
   
   query.whereNull('deleted_at');
 
@@ -28,7 +28,7 @@ const list = async (args:any) => {
     query.orderBy(args.query.orderBy);
   }
   const resp = await query;
-  
+  if (resp.length === 0 ) return { message: 'No records' };
   return resp;
 };
 
@@ -38,8 +38,14 @@ const list = async (args:any) => {
 */
 const get = async (args:any) => {
   try {
-    const member = await service.query().whereNull('deleted_at').findById(args.params.id);
-    return member;
+    const institution = await model
+      .query()
+      .allowGraph('[childrens]')
+      .withGraphFetched('[childrens]')
+      .whereNull('deleted_at')
+      .findById(args.params.id);
+    if (!institution) return { message: 'Not found'}
+    return institution;
   } catch(error) {
     return error
   }
@@ -50,8 +56,8 @@ const get = async (args:any) => {
 */
 const save = async (args:any) => {
   try {
-    const insertedGraph = await service.transaction(async (trx) => {
-      const insertedGraph = await service.query(trx)
+    const insertedGraph = await model.transaction(async (trx) => {
+      const insertedGraph = await model.query(trx)
         .allowGraph('[child]')
         .insertGraph(args.body);
       return insertedGraph; 
@@ -68,8 +74,8 @@ const save = async (args:any) => {
 */
 const patch = async (args:any) => {
   try {
-    const insertedGraph = await service.transaction(async (trx) => {
-      const insertedGraph = await service.query(trx)
+    const insertedGraph = await model.transaction(async (trx) => {
+      const insertedGraph = await model.query(trx)
         .patch(args.body)
         .findById(args.params.id);
       return insertedGraph; 
@@ -90,7 +96,7 @@ const del = async (args:any) => {
     const memberReq = args.body;
     const now = new Date();
     memberReq.deleted_at = now;
-    const memberDeleted = await service.query().findById(id).patch(memberReq);
+    const memberDeleted = await model.query().findById(id).patch(memberReq);
     return {
       success: memberDeleted == 1,
     }

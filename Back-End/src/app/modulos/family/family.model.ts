@@ -25,21 +25,29 @@ export default class Family extends Model {
     }
   }
 
+  static members() {
+    return FamilyMembers;
+  }
+
+  static addres() {
+    return Address;
+  }
+
   static relationMappings = () => ({
     familyMembers: {
       relation: Model.HasManyRelation,
       modelClass: FamilyMembers,
       join: {
-        from: 'tbl_family_member.family_id',
-        to: 'family_id',
+        from: 'tbl_family.family_id',
+        to: 'tbl_family_members.family_id',
       }
     },
     address: {
-      relation: Model.HasManyRelation,
+      relation: Model.BelongsToOneRelation,
       modelClass: Address,
       join: {
-        from: 'tbl_address.family_id',
-        to: 'family_id',
+        from: 'tbl_family.family_id',
+        to: 'tbl_address.family_id',
       }
     }
   })

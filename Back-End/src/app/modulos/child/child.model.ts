@@ -22,12 +22,12 @@ export default class Child extends Model {
   }
 
   static relationMappings = () => ({
-    child: {
+    institution: {
       relation: Model.BelongsToOneRelation,
       modelClass: Institution,
       join: {
-        from: 'tbl_institution.institution_id',
-        to: 'institution_id',
+        from: 'tbl_adoption_child.institution_id',
+        to: 'tbl_institution.institution_id',
       }
     },
   })

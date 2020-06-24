@@ -32,7 +32,12 @@ const list = async (args:any) => {
 */
 const get = async (args:any) => {
   try {
-    const addressFound = await model.query().whereNull('deleted_at').findById(args.params.id);
+    const addressFound = await model
+      .query()
+      .allowGraph('[family.[familyMembers]]')
+      .withGraphFetched('[family.[familyMembers]]')
+      .whereNull('deleted_at')
+      .findById(args.params.id);
 
     return addressFound;
   } catch(error) {

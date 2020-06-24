@@ -26,8 +26,8 @@ export default class FamilyMembers extends Model {
       relation: Model.HasOneRelation,
       modelClass: Family,
       join: {
-        from: 'tbl_family.family_id',
-        to: 'family_id',
+        from: 'tbl_family_members.family_id',
+        to: 'tbl_family.family_id',
       }
     },
   })

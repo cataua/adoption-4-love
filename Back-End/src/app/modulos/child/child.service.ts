@@ -1,10 +1,10 @@
-import service from './child.model';
+import model from './child.model';
 
 /** 
  * Fetch multiple childrens
 */
 const list = async (args:any) => {
-  const query = service.query();
+  const query = model.query();
   
   query.whereNull('deleted_at');
 
@@ -38,7 +38,12 @@ const list = async (args:any) => {
 */
 const get = async (args:any) => {
   try {
-    const child = await service.query().whereNull('deleted_at').findById(args.params.id);
+    const child = await model
+      .query()
+      .allowGraph('[institution]')
+      .withGraphFetched('[institution]')
+      .whereNull('deleted_at')
+      .findById(args.params.id);
     return child;
   } catch(error) {
     return error
@@ -50,8 +55,8 @@ const get = async (args:any) => {
 */
 const save = async (args:any) => {
   try {
-    const insertedGraph = await service.transaction(async (trx) => {
-      const insertedGraph = await service.query(trx)
+    const insertedGraph = await model.transaction(async (trx) => {
+      const insertedGraph = await model.query(trx)
         .allowGraph('[institution]')
         .insertGraph(args.body);
       return insertedGraph; 
@@ -68,8 +73,8 @@ const save = async (args:any) => {
 */
 const patch = async (args:any) => {
   try {
-    const insertedGraph = await service.transaction(async (trx) => {
-      const insertedGraph = await service.query(trx)
+    const insertedGraph = await model.transaction(async (trx) => {
+      const insertedGraph = await model.query(trx)
         .patch(args.body)
         .findById(args.params.id);
       return insertedGraph; 
@@ -90,7 +95,7 @@ const del = async (args:any) => {
     const memberReq = args.body;
     const now = new Date();
     memberReq.deleted_at = now;
-    const memberDeleted = await service.query().findById(id).patch(memberReq);
+    const memberDeleted = await model.query().findById(id).patch(memberReq);
     return {
       success: memberDeleted == 1,
     }
