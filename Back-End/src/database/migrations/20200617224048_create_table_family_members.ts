@@ -12,7 +12,7 @@ export async function up(db: Knex) {
         table
           .enu("degree_of_kinship", ["Representante", "Cônjuge", "Filho(a)"])
           .notNullable();
-        table.date("birth_date").nullable();
+        table.string("birth_date", 10).nullable();
         table
           .integer("family_id")
           .references("family_id")

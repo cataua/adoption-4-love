@@ -10,7 +10,7 @@ export async function up(db: Knex) {
         table.string("avatar", 255).nullable();
         table.string("name", 120).notNullable();
         table.string("cnpj", 14).notNullable();
-        table.dateTime("foundation_date").nullable();
+        table.string("foundation_date",10).nullable();
         table.string("password", 65).notNullable();
         table.timestamp("created_at").notNullable().defaultTo(db.fn.now());
         table.timestamp("updated_at").notNullable().defaultTo(db.fn.now());
