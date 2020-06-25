@@ -1,11 +1,30 @@
-import App from './app';
-import Knex from 'knex';
-import { Model } from 'objection';
-const config = require('../knexfile');
+import express from "express";
+import bodyParser from "body-parser";
+import routes from "./routes";
+import { Model } from "objection";
+import connection from "./database/connection";
 
-const knex:Knex = Knex(config.development);
+const app = express();
+const port = 3001;
 
-Model.knex(knex);
+const logger = (
+  request: express.Request,
+  response: express.Response,
+  next: express.NextFunction
+) => {
+  console.log(
+    `LOGGER: ${request.method} - ${request.path} (${response.statusCode})`
+  );
+  next();
+};
+app.use(logger);
+app.use(bodyParser.json());
+app.use(routes);
 
-const app = App();
+app.listen(port, () => {
+  console.log(`🚀 App listening on port ${port}`);
+});
+
+Model.knex(connection);
+
 export default app;

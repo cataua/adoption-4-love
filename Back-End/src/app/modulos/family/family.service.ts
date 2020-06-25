@@ -49,7 +49,6 @@ const get = async (args:any) => {
 */
 const save = async (args:any) => {
   try {
-    console.log('Family -> ', Family);
     const insertedGraph = await Family.query().insert(args.body);
     return insertedGraph;
   } catch (error) { 
