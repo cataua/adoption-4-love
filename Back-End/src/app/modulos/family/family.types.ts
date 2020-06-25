@@ -6,8 +6,8 @@ export interface FamilyType {
   nickname: string;
   email: string;
   password: string;
-  members: Member;
-  address: Address;
+  members?: Member;
+  address?: Address;
   created_at?: Date;
   updated_at?: Date;
   deleted_at?: Date;
