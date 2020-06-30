@@ -1,5 +1,6 @@
 import express from "express";
 import familyService from "./family.service";
+import Family from "./family.model";
 
 const list = async (req: express.Request, res: express.Response) => {
   try {
@@ -23,9 +24,10 @@ const get = async (req: express.Request, res: express.Response) => {
 const save = async (req: express.Request, res: express.Response) => {
   try {
     const resp = await familyService.save(req);
-    return res.status(201).json(resp);
+    if (resp instanceof Family) return res.status(201).json(resp);
+    return res.status(400).json({ message: "Request failed", error: resp });
   } catch (error) {
-    return res.status(400).json({ message: "Request failed" });
+    return res.status(400).json({ message: "Request failed", error });
   }
 };
 
