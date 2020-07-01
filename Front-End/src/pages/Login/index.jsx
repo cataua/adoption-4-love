@@ -17,23 +17,19 @@ class SignIn extends Component {
       <Container>
       <Content>
         <AnimationContainer>
-          <h1>HUMANIZE</h1>
+          <h1 style={{marginTop: 30}}>HUMANIZE</h1>
           <p>👨‍👩‍👦️</p> 
           <Form>
             <h1>Faça login</h1>
-
             <input name="email" icon={FiMail} placeholder="E-mail" />
-
             <input
               name="password"
               icon={FiLock}
               type="password"
               placeholder="Senha"
             />
-
             <button type="submit">Entrar</button>
-
-            <a href="forgot">Esqueci minha senha</a>
+            <a href="/">Esqueci minha senha</a>
           </Form>
         </AnimationContainer>
       </Content>

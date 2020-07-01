@@ -5237,6 +5237,11 @@ globule@^1.0.0:
     lodash "~4.17.10"
     minimatch "~3.0.2"
 
+goober@1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/goober/-/goober-1.8.0.tgz#ed97e40e87300c6d1c8304a9d4b0f1398ff7669a"
+  integrity sha512-9ZFoOkBccexjqIgcwlhq7C/eCSkgTZX0BdNUkOnBFLedrJgo3R8lp9ckd/qqtngtF/JDyXSxJzwMU98kNjZ4Mw==
+
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.2:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.3.tgz#4a12ff1b60376ef09862c2093edd908328be8423"
@@ -9294,6 +9299,13 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-multistep@^5.0.5:
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/react-multistep/-/react-multistep-5.0.5.tgz#3669c3e1d052ad4630160be6b96ee45bb805081a"
+  integrity sha512-lisKZy3Ov4Jg28m459uGuKBz2v3fywwhXg1WhW6MxrLNnfp9fRhvF7c4Edahw0LXWjoDgz13e3tRYCXfsw8FWw==
+  dependencies:
+    goober "1.8.0"
 
 react-overlays@^3.1.2:
   version "3.2.0"

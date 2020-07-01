@@ -74,6 +74,21 @@ export const AnimationContainer = styled.div`
     }
   }
 
+  select {
+    background: transparent;
+    padding: 0 16px;
+    width: 100%;
+    height: 60px;
+    border: 2px solid #232129;
+    border-radius: 10px;
+    -webkit-appearance: none;
+    cursor: pointer;
+
+    svg {
+      background: #000;
+    }
+  }
+
     button {
       background: #322153;
       height: 56px;
