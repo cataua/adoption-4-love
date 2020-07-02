@@ -1,42 +1,46 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Form } from '@unform/web';
+
+import Input from '../Input';
 
 import { Container, Content, AnimationContainer } from './styles';
 
-const StepOne = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+const StepOne = ({nextStep}) => {
+  const handleSubmit = (data) => {
+    //TODO -> faça api
+    nextStep();
+    console.log(data)
+  };
 
-  return (
+ return (
     <Container>
       <Content>
         <AnimationContainer>
           <h3 style={{marginTop: 30}}>Cadastre e-mail e senha</h3>
           <p>✉️</p>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <div>
               <div>
-                <input
-                  className=''
+                <Input
                   placeholder='meu@email.com'
+                  name='email'
+                  id="email"
                   type='email'
-                  onChange={e => setEmail(e.target.value)}
-                  value={email}
                   autoFocus
                 />
               </div>
             </div>
             <div>
               <div>
-                <input
-                  className=''
+                <Input
+                  name="password"
+                  id="password"
                   placeholder='Digite sua senha'
                   type='password'
-                  onChange={e => setPassword(e.target.value)}
-                  value={password}
                 />
               </div>
             </div>
+            <button type="submit">PRÓXIMO</button>
           </Form>
         </AnimationContainer>
       </Content>

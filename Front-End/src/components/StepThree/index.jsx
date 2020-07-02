@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Form } from '@unform/web';
+
+import Input from '../Input';
 
 import { Container, Content, AnimationContainer } from './styles';
 
-const StepThree = () => {
-  const [street, setStreet] = useState('');
-  const [number, setNumber] = useState('');
-  const [complement, setComplement] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [cep, setCep] = useState('');
+const StepThree = ({nextStep}) => {
+  const handleSubmit = (data) => {
+    //TODO -> faça api
+    nextStep();
+    console.log(data)
+  };
 
   return (
     <Container>
@@ -17,71 +18,65 @@ const StepThree = () => {
         <AnimationContainer>
           <h3 style={{marginTop: 30}}>Cadastre seu endereço</h3>
           <p>🏠</p>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <div>
               <div>
-                <input
+                <Input
                   className='u-full-width required'
+                  name="street"
                   placeholder='Rua'
                   type='text'
-                  onChange={e => setStreet(e.target.value)}
-                  value={street}
                   autoFocus
                 />
               </div>
             </div>
             <div>
               <div>
-                <input
+                <Input
                   className='u-full-width'
+                  name="number"
                   placeholder='Número'
                   type='text'
-                  onChange={e => setNumber(e.target.value)}
-                  value={number}
                 />
               </div>
             </div>
             <div>
               <div>
-                <input
+                <Input
                   className='u-full-width'
+                  name="complement"
                   placeholder='Complemento'
                   type='text'
-                  onChange={e => setComplement(e.target.value)}
-                  value={complement}
                 />
               </div>
             </div>
             <div>
               <div>
-                <input
+                <Input
                   className='u-full-width'
+                  name="city"
                   placeholder='Cidade'
                   type='text'
-                  onChange={e => setCity(e.target.value)}
-                  value={city}
                 />
               </div>
             </div>
             <div>
               <div>
-                <input
+                <Input
                   className='u-full-width'
+                  name="state"
                   placeholder='Estado'
                   type='text'
-                  onChange={e => setState(e.target.value)}
-                  value={state}
                 />
               </div>
             </div>
             <div>
               <div>
-                <input
+                <Input
                   className='u-full-width'
+                  name="cep"
                   placeholder='CEP'
                   type='text'
-                  onChange={e => setCep(e.target.value)}
-                  value={cep}
                 />
               </div>
             </div>

@@ -1,34 +1,34 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import StepOne from '../../components/StepOne';
 import StepTwo from '../../components/StepTwo';
 import StepThree from '../../components/StepThree';
 import StepFour from '../../components/StepFour';
 
-import { Button, Container } from './styles';
+import { Container } from './styles';
 
 const SignUpForm = () => {
-  const [visible, setVisible] = useState(false);
+  const [step, setStep] = useState(1);
 
-  const steps = [
-    {id: 1, component: <StepOne />},
-    {id: 2, component: <StepTwo />},
-    {id: 3, component: <StepThree />},
-    {id: 4, component: <StepFour />},
-  ]
+  const nextStep = () => {
+    setStep(oldStep => oldStep + 1);
+  };
 
-  const handleSteps = (event) => {
-    event.preventDefault();
-  }
+  const showStep = () => {
+    if (step === 1)
+      return (<StepOne nextStep={nextStep} />);
+    if (step === 2)
+      return (<StepTwo nextStep={nextStep} />);
+    if (step === 3)
+      return (<StepThree nextStep={nextStep} />);
+    if (step === 4)
+      return (<StepFour nextStep={nextStep} />);
+  };
 
   return (
-    <>
-      {steps.map(step => (step.component))}
-      <Container>
-        <Button onClick={handleSteps}>ANTERIOR</Button>
-        <Button onClick={handleSteps}>PRÓXIMO</Button>
-      </Container>
-    </>
+    <Container>
+      {step && showStep()}
+    </Container>
   )
 }
 
