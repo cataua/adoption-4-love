@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import { shade } from 'polished';
 
 export const Container = styled.div`
-  height: 70vh;
+  height: 770px;
   display: flex;
   align-items: center;
   justify-content: center;
