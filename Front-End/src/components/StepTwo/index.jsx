@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiChevronDown } from 'react-icons/fi';
+// import { FiChevronDown } from 'react-icons/fi';
 import { Form } from '@unform/web';
 
 import Input from '../Input';
@@ -55,16 +55,16 @@ const StepTwo = ({nextStep}) => {
             </div>
             <div>
               <div>
-                <select placeholder='Grau de Parentesco' onChange={(e) => setNextOfKin(e.target.value)} icon={FiChevronDown} name="nextOfKin" id="nextOfKin">
-                  <option value="" disabled selected>Grau de parentesco</option>
+                <select placeholder='Grau de Parentesco' onChange={(e) => setNextOfKin(e.target.value)} name="nextOfKin" id="nextOfKin">
+                  <option value="" disabled defaultValue>Grau de parentesco</option>
                   <option value={nextOfKin}>Cônjuge</option>
                   <option value={nextOfKin}>Filho(a)</option>
                 </select>
               </div>
             </div>
-           
-            <button>ADICIONAR NOVO MEMBRO</button>
-            <button type="submit">PRÓXIMO</button>
+
+            <button type="submit">ADICIONAR NOVO MEMBRO</button>
+            <button>PRÓXIMO</button>
           </Form>
         </AnimationContainer>
       </Content>
