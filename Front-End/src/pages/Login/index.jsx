@@ -10,7 +10,7 @@ import { Container, Content, AnimationContainer } from './styles';
 const SignIn = () => {
   const handleSubmit = (data) => {
     //TODO -> faça api
-    nextStep();
+    // nextStep();
     console.log(data)
   };
 
