@@ -1,12 +1,13 @@
 import knex from "knex";
+import "dotenv/config";
 
 const connection = knex({
   client: "pg",
   connection: {
-    host: "localhost",
-    database: "adoption_forlove",
-    user: "adoption4love",
-    password: "DioXSquado2020!",
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
     insecureAuth: true,
     timezone: "-03:00",
   },

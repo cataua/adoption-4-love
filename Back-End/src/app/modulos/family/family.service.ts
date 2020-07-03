@@ -1,4 +1,5 @@
 import Family from "./family.model";
+import { UniqueViolationError } from "objection";
 /**
  * Fetch multiple families
  */
@@ -62,31 +63,30 @@ const save = async (args: any) => {
       birth_date,
       degree_of_kinship: "Representante",
     } as any;
-    /**
-     * Versão sem transaction
-     */
-    // const familyBody = {
-    //   avatar,
-    //   nickname: name.split(" ").pop().toLowerCase() + new Date().getTime(),
-    //   email,
-    //   password,
-    //   familyMembers: [
-    //      name,
-    //      cpf,
-    //      birth_date,
-    //      degree_of_kinship: "Representante",
-    //   ]
-    // } as any;
-    // const insertedGraph = await Family.query()
-    //   .allowGraph("[familyMembers]")
-    //   .insertGraph(familyBody);
     const family = await Family.query(trx).insert(familyBody);
     await family.$relatedQuery("familyMembers", trx).insert(familyMembers);
     await trx.commit();
     return family.$fetchGraph("[familyMembers]");
   } catch (error) {
     await trx.rollback();
-    return error;
+    if (error instanceof UniqueViolationError) {
+      return ["Já existe um membro com os dados informados"];
+    }
+    if (error?.type === "ModelValidation") {
+      let errors = Object.entries(error.data);
+      return errors.map((err: Object) => {
+        if (err[1][0].keyword === "required") {
+          return `O campo ${err[0]} é obrigatório!`;
+        } else if (err[1][0].keyword === "minLength") {
+          return `O campo ${err[0]} deve ter no mínimo ${err[1][0].params.limit} caracteres!`;
+        } else if (err[1][0].keyword === "maxLength") {
+          return `O campo ${err[0]} deve ter no máximo ${err[1][0].params.limit} caracteres!`;
+        } else {
+          return "Não foi possível validar as informações";
+        }
+      });
+    }
+    return ["Não foi possível validar as informações"];
   }
 };
 

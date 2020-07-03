@@ -9,7 +9,7 @@ export async function up(db: Knex) {
         table.increments("family_id").primary();
         table.string("avatar", 45).nullable();
         table.string("nickname", 45).notNullable().unique();
-        table.string("email", 45).notNullable();
+        table.string("email", 45).notNullable().unique();
         table.string("password").notNullable();
         table.timestamp("created_at").notNullable().defaultTo(db.fn.now());
         table.timestamp("updated_at").notNullable().defaultTo(db.fn.now());

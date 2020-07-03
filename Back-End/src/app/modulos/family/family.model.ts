@@ -30,7 +30,7 @@ export default class Family extends Model {
     return FamilyMembers;
   }
 
-  static addres() {
+  static address() {
     return Address;
   }
 

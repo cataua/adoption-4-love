@@ -8,7 +8,7 @@ export async function up(db: Knex) {
       await db.schema.createTable(TABLE, (table) => {
         table.increments("family_member_id").primary();
         table.string("name", 120).notNullable();
-        table.string("cpf", 11).notNullable();
+        table.string("cpf", 11).notNullable().unique();
         table
           .enu("degree_of_kinship", ["Representante", "Cônjuge", "Filho(a)"])
           .notNullable();

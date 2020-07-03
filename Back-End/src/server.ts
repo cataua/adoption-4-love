@@ -3,9 +3,10 @@ import bodyParser from "body-parser";
 import routes from "./routes";
 import { Model } from "objection";
 import connection from "./database/connection";
+import "dotenv/config";
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT;
 
 const logger = (
   request: express.Request,
