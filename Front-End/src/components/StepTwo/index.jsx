@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
 // import { FiChevronDown } from 'react-icons/fi';
 import { Form } from '@unform/web';
+import api from '../../services/api';
+
 
 import Input from '../Input';
 
 import { Container, Content, AnimationContainer } from './styles';
 
-const StepTwo = ({nextStep}) => {
-  const [nextOfKin, setNextOfKin] = useState('');
+const StepTwo = ({nextStep, familyId}) => {
+  const [nextOfKin, setNextOfKin] = useState('Cônjuge');
 
-  const handleSubmit = (data) => {
-    //TODO -> faça api
-    nextStep();
-    console.log(data)
+  const handleSubmit = (data, {reset}) => {
+    api.post('api/member', {
+      ...data,
+      family_id: familyId,
+      degree_of_kinship: nextOfKin,
+    }).then(response => {
+      reset();
+      setNextOfKin('Cônjuge');
+
+      console.log(response)
+    }).catch(error => {
+      console.log(error)
+    })
   };
 
   return (
@@ -25,8 +36,7 @@ const StepTwo = ({nextStep}) => {
             <div>
               <div>
                 <Input
-                  className=''
-                  name="fullname"
+                  name="name"
                   placeholder='Nome completo'
                   type='text'
                   autoFocus
@@ -36,17 +46,15 @@ const StepTwo = ({nextStep}) => {
             <div>
               <div>
                 <Input
-                  className=''
-                  name="birthday"
+                  name="birth_date"
                   placeholder='Data de nascimento'
-                  type='date'
+                  type='text'
                 />
               </div>
             </div>
             <div>
               <div>
                 <Input
-                  className=''
                   name="cpf"
                   placeholder='CPF'
                   type='text'
@@ -55,16 +63,15 @@ const StepTwo = ({nextStep}) => {
             </div>
             <div>
               <div>
-                <select placeholder='Grau de Parentesco' onChange={(e) => setNextOfKin(e.target.value)} name="nextOfKin" id="nextOfKin">
-                  <option value="" disabled defaultValue>Grau de parentesco</option>
-                  <option value={nextOfKin}>Cônjuge</option>
-                  <option value={nextOfKin}>Filho(a)</option>
+                <select placeholder='Grau de Parentesco' onChange={(e) => setNextOfKin(e.target.value)} value={nextOfKin}>
+                  <option value="Cônjuge">Cônjuge</option>
+                  <option value="Filho(a)">Filho(a)</option>
                 </select>
               </div>
             </div>
 
             <button type="submit">ADICIONAR NOVO MEMBRO</button>
-            <button>PRÓXIMO</button>
+            <button onClick={nextStep}>PRÓXIMO</button>
           </Form>
         </AnimationContainer>
       </Content>

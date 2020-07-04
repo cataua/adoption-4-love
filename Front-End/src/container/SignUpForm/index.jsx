@@ -9,20 +9,25 @@ import { Container } from './styles';
 
 const SignUpForm = () => {
   const [step, setStep] = useState(1);
+  const [familyId, setFamilyId] = useState();
 
   const nextStep = () => {
     setStep(oldStep => oldStep + 1);
   };
 
+  const handleChangeFamilyId = (id) => {
+    setFamilyId(id);
+  }
+
   const showStep = () => {
     if (step === 1)
-      return (<StepOne nextStep={nextStep} />);
+      return (<StepOne nextStep={nextStep} handleChangeFamilyId={handleChangeFamilyId} />);
     if (step === 2)
-      return (<StepTwo nextStep={nextStep} />);
+      return (<StepTwo nextStep={nextStep} familyId={familyId} />);
     if (step === 3)
-      return (<StepThree nextStep={nextStep} />);
+      return (<StepThree nextStep={nextStep} familyId={familyId} />);
     if (step === 4)
-      return (<StepFour nextStep={nextStep} />);
+      return (<StepFour />);
   };
 
   return (

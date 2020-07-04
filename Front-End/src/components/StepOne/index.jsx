@@ -6,16 +6,16 @@ import Input from '../Input';
 
 import { Container, Content, AnimationContainer } from './styles';
 
-const StepOne = ({nextStep}) => {
+const StepOne = ({ nextStep, handleChangeFamilyId }) => {
 
   const handleSubmit = (data) => {
     api.post('/api/family', data).then(response => {
+      handleChangeFamilyId(response.data.family_id);
       nextStep();
       console.log(response)
     }).catch(error => {
       console.log(error)
     })
-    console.log(data)
   };
 
  return (

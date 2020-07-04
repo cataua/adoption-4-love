@@ -1,17 +1,25 @@
 import React from 'react'
 import { Form } from '@unform/web';
+import api from '../../services/api';
 
 import Input from '../Input';
 
 import { Container, Content, AnimationContainer } from './styles';
 
-const StepThree = ({nextStep}) => {
-  const handleSubmit = (data) => {
-    //TODO -> faça api
-    nextStep();
-    console.log(data)
-  };
+const StepThree = ({nextStep, familyId}) => {
 
+  const handleSubmit = (data) => {
+    console.log(data, familyId);
+    api.post('api/address', {
+      ...data,
+      family_id: familyId,
+    }).then(response => {
+      nextStep();
+      console.log(response)
+    }).catch(error => {
+      console.log(error)
+    })
+  }
   return (
     <Container>
       <Content>
@@ -22,7 +30,6 @@ const StepThree = ({nextStep}) => {
             <div>
               <div>
                 <Input
-                  className='u-full-width required'
                   name="street"
                   placeholder='Rua'
                   type='text'
@@ -33,7 +40,6 @@ const StepThree = ({nextStep}) => {
             <div>
               <div>
                 <Input
-                  className='u-full-width'
                   name="number"
                   placeholder='Número'
                   type='text'
@@ -43,7 +49,6 @@ const StepThree = ({nextStep}) => {
             <div>
               <div>
                 <Input
-                  className='u-full-width'
                   name="complement"
                   placeholder='Complemento'
                   type='text'
@@ -53,7 +58,6 @@ const StepThree = ({nextStep}) => {
             <div>
               <div>
                 <Input
-                  className='u-full-width'
                   name="city"
                   placeholder='Cidade'
                   type='text'
@@ -63,7 +67,6 @@ const StepThree = ({nextStep}) => {
             <div>
               <div>
                 <Input
-                  className='u-full-width'
                   name="state"
                   placeholder='Estado'
                   type='text'
@@ -73,7 +76,6 @@ const StepThree = ({nextStep}) => {
             <div>
               <div>
                 <Input
-                  className='u-full-width'
                   name="cep"
                   placeholder='CEP'
                   type='text'
